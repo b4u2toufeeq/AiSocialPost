@@ -128,3 +128,14 @@
     @apply font-sans;
   }
 }
+
+/* Default English */
+body {
+  font-family: var(--font-outfit);
+}
+
+/* Arabic */
+html[lang="ar"] body,
+[dir="rtl"] {
+  font-family: var(--font-arabic);
+}
