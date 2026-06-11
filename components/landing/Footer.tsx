@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "@/components/providers/locale-provider";
-import { LOCALES } from "@/lib/i18n";
+import { LOCALES } from "@/services/i18n";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   InstagramIcon,

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useLocale } from "@/components/providers/locale-provider";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-import { LOCALES } from "@/lib/i18n";
+import { LOCALES } from "@/services/i18n";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Menu01Icon, Cancel01Icon, Sun01Icon, Moon01Icon } from "@hugeicons/core-free-icons";
 import Link from "next/link";

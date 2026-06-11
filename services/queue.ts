@@ -17,6 +17,7 @@ export const postSchedulerQueue =
 if (process.env.NODE_ENV !== "production") {
   globalForQueue.postSchedulerQueue = postSchedulerQueue;
 }
+
 export type PostJobPayload = {
   postId: string;
   platforms: string[];

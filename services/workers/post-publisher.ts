@@ -20,7 +20,6 @@ export const postPublisherWorker =
       const { postId } = job.data;
       console.log(`[Worker] Processing scheduled post: ${postId}`);
 
-      // 1. Fetch post detail from database
       const postRecord = await db.query.posts.findFirst({
         where: eq(posts.id, postId),
       });
@@ -29,14 +28,12 @@ export const postPublisherWorker =
         throw new Error(`[Worker] Post not found: ${postId}`);
       }
 
-      // Update post status to publishing
       await db
         .update(posts)
         .set({ status: "publishing", updatedAt: new Date() })
         .where(eq(posts.id, postId));
 
       try {
-        // 2. Fetch linked social accounts for the user
         const accounts = await db.query.socialAccounts.findMany({
           where: eq(socialAccounts.userId, postRecord.userId),
         });
@@ -47,15 +44,12 @@ export const postPublisherWorker =
 
         let allSucceeded = true;
 
-        // 3. Publish to each platform account
         for (const account of accounts) {
           try {
             console.log(`[Worker] Simulating publication of post ${postId} to ${account.platform} for account ${account.username}`);
-            
-            // Simulate API delay
+
             await new Promise((resolve) => setTimeout(resolve, 1500));
 
-            // Mock success
             const externalPostId = `mock_${account.platform}_${Math.random().toString(36).substring(2, 11)}`;
 
             await db.insert(postPlatformResults).values({
@@ -80,7 +74,6 @@ export const postPublisherWorker =
           }
         }
 
-        // Update parent post status
         await db
           .update(posts)
           .set({ status: allSucceeded ? "published" : "failed", updatedAt: new Date() })

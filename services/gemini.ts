@@ -3,9 +3,6 @@ import { env } from "@/lib/env";
 
 const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
 
-/**
- * Generates an engaging social media post caption based on a given context/prompt.
- */
 export async function generateCaption(context: string): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
@@ -22,9 +19,6 @@ Include relevant, tasteful hashtags if appropriate. Return ONLY the final captio
   }
 }
 
-/**
- * Generates an automated assistant reply to a user's comment.
- */
 export async function generateAutoReply(comment: string, context: string): Promise<string> {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });

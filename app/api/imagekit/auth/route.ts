@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { imagekit } from "@/lib/imagekit";
+import { imagekit } from "@/services/imagekit";
 
 export async function GET() {
   try {
