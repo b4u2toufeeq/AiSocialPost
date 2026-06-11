@@ -68,6 +68,190 @@
     "proTier": "Pro Premium Tier",
     "unlimited": "Unlimited Access"
   },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "howItWorks": "How It Works",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "signIn": "Sign In",
+      "getStarted": "Get Started"
+    },
+    "hero": {
+      "title": "Schedule Smarter. Post Faster. Grow Everywhere.",
+      "subtitle": "AI-powered social media management — generate, schedule, and publish content across all your platforms from one dashboard.",
+      "ctaPrimary": "Start Free Trial",
+      "ctaSecondary": "See How It Works"
+    },
+    "platformStrip": {
+      "title": "Connect all your platforms"
+    },
+    "features": {
+      "title": "Everything you need to dominate social media",
+      "subtitle": "Powerful tools to create, schedule, and analyze your content across all platforms",
+      "items": [
+        {
+          "title": "AI Content Generation",
+          "description": "Generate engaging captions, hashtags, and post ideas with the power of AI in seconds."
+        },
+        {
+          "title": "Multi-Platform Scheduling",
+          "description": "Schedule posts across Instagram, Twitter, LinkedIn, TikTok and more from one calendar."
+        },
+        {
+          "title": "Smart Analytics",
+          "description": "Track engagement, impressions, and follower growth with beautiful visual reports."
+        },
+        {
+          "title": "Team Collaboration",
+          "description": "Invite team members, review drafts, and manage approvals seamlessly."
+        },
+        {
+          "title": "AI Auto-Reply",
+          "description": "Set up smart auto-replies that handle customer queries 24/7 with natural language."
+        },
+        {
+          "title": "Cross-Platform Integration",
+          "description": "Connect all your social accounts and manage everything from a single dashboard."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "Get started in 3 simple steps",
+      "subtitle": "From zero to scheduled in minutes",
+      "step1Title": "Connect Your Accounts",
+      "step1Desc": "Link your social media profiles — Instagram, Twitter, LinkedIn, TikTok, and more. One-click OAuth setup.",
+      "step2Title": "Create with AI",
+      "step2Desc": "Write or generate posts using AI. Customize tone, add media, and preview before publishing.",
+      "step3Title": "Schedule & Publish",
+      "step3Desc": "Set your ideal posting times. Auto-publish or review drafts. Let Social Copilot handle the rest."
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "No hidden fees. No surprises. Cancel anytime.",
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "period": "/month",
+        "description": "Perfect for getting started",
+        "features": [
+          "Up to 10 posts/month",
+          "1 social account",
+          "Basic AI captions",
+          "Calendar view"
+        ],
+        "cta": "Get Started Free"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$29",
+        "period": "/month",
+        "description": "For serious creators & small teams",
+        "features": [
+          "Unlimited posts",
+          "Up to 5 social accounts",
+          "Advanced AI generation",
+          "Auto-reply rules",
+          "Analytics dashboard",
+          "Priority support"
+        ],
+        "cta": "Start Pro Trial",
+        "popular": "Most Popular"
+      },
+      "business": {
+        "name": "Business",
+        "price": "$99",
+        "period": "/month",
+        "description": "For agencies & larger teams",
+        "features": [
+          "Everything in Pro",
+          "Unlimited social accounts",
+          "Team collaboration",
+          "Custom AI prompts",
+          "API access",
+          "Dedicated account manager"
+        ],
+        "cta": "Contact Sales"
+      }
+    },
+    "testimonials": {
+      "title": "Loved by creators worldwide",
+      "items": [
+        {
+          "name": "Sarah Chen",
+          "role": "Content Creator",
+          "content": "Social Copilot has transformed my workflow. I went from spending 10 hours a week on scheduling to just 30 minutes. The AI captions are uncanny."
+        },
+        {
+          "name": "Marcus Johnson",
+          "role": "Social Media Manager",
+          "content": "Managing 5 clients used to be a nightmare. Now I handle everything from one dashboard. The analytics alone saved me hours of reporting."
+        },
+        {
+          "name": "Aisha Patel",
+          "role": "Marketing Director",
+          "content": "The AI auto-reply feature is a game changer for our customer support. Our response time dropped from 24 hours to under 5 minutes."
+        },
+        {
+          "name": "Tomás García",
+          "role": "Startup Founder",
+          "content": "We scaled our social presence from 0 to 50K followers in 3 months. The scheduling and analytics tools gave us the edge we needed."
+        },
+        {
+          "name": "Emily Watson",
+          "role": "Freelance Designer",
+          "content": "The multi-platform scheduling is flawless. I love that I can preview how my posts will look on each platform before publishing."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "What platforms do you support?",
+          "a": "We support Instagram, Twitter/X, LinkedIn, Facebook, TikTok, YouTube, Pinterest, Threads, Bluesky, Mastodon, and Telegram. More platforms are added regularly."
+        },
+        {
+          "q": "Can I cancel my subscription anytime?",
+          "a": "Absolutely. There are no long-term contracts. You can upgrade, downgrade, or cancel your subscription at any time. Your data remains yours."
+        },
+        {
+          "q": "How does the AI content generation work?",
+          "a": "Our AI uses advanced language models trained on high-performing social content. Just provide a topic or keywords, and it generates engaging captions, hashtags, and post ideas tailored to your brand voice."
+        },
+        {
+          "q": "Is there a free trial for paid plans?",
+          "a": "Yes! You can try the Pro plan free for 14 days with no credit card required. Experience all features before committing."
+        },
+        {
+          "q": "Can I collaborate with my team?",
+          "a": "Absolutely. The Business plan includes team collaboration features — invite members, assign roles, review drafts, and manage approvals in one place."
+        },
+        {
+          "q": "How secure is my data?",
+          "a": "We take security seriously. All data is encrypted in transit and at rest. We use enterprise-grade infrastructure and never share your data with third parties."
+        }
+      ]
+    },
+    "footer": {
+      "description": "AI-powered social media management for creators, teams, and agencies. Schedule smarter, post faster, grow everywhere.",
+      "product": "Product",
+      "productFeatures": "Features",
+      "productPricing": "Pricing",
+      "productIntegrations": "Integrations",
+      "productChangelog": "Changelog",
+      "company": "Company",
+      "companyAbout": "About",
+      "companyBlog": "Blog",
+      "companyCareers": "Careers",
+      "companyContact": "Contact",
+      "legal": "Legal",
+      "legalPrivacy": "Privacy Policy",
+      "legalTerms": "Terms of Service",
+      "legalCookies": "Cookie Policy",
+      "rights": "All rights reserved."
+    }
+  },
   "errors": {
     "authFailed": "Authentication failed. Please sign in again.",
     "uploadFailed": "Image upload failed. Try again.",
