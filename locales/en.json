@@ -1,5 +1,5 @@
 {
-  "title": "Welcome to Social Copilot",
+  "title": "Welcome to AeroSocial Agent",
   "description": "Use AI to generate social posts quickly and professionally.",
   "button": "Submit",
   "languageLabel": "Language",
@@ -124,7 +124,7 @@
       "step2Title": "Create with AI",
       "step2Desc": "Write or generate posts using AI. Customize tone, add media, and preview before publishing.",
       "step3Title": "Schedule & Publish",
-      "step3Desc": "Set your ideal posting times. Auto-publish or review drafts. Let Social Copilot handle the rest."
+      "step3Desc": "Set your ideal posting times. Auto-publish or review drafts. Let AeroSocial Agent handle the rest."
     },
     "pricing": {
       "title": "Simple, transparent pricing",
@@ -180,7 +180,7 @@
         {
           "name": "Sarah Chen",
           "role": "Content Creator",
-          "content": "Social Copilot has transformed my workflow. I went from spending 10 hours a week on scheduling to just 30 minutes. The AI captions are uncanny."
+          "content": "AeroSocial Agent has transformed my workflow. I went from spending 10 hours a week on scheduling to just 30 minutes. The AI captions are uncanny."
         },
         {
           "name": "Marcus Johnson",

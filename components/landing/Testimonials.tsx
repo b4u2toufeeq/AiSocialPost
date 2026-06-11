@@ -13,10 +13,10 @@ export default function Testimonials() {
   const { t } = useLocale();
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden bg-white dark:bg-[#0a0a0f]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {t.landing.testimonials.title}
           </h2>
         </div>
@@ -32,20 +32,20 @@ export default function Testimonials() {
             {t.landing.testimonials.items.map(
               (item: { name: string; role: string; content: string }, i: number) => (
                 <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="h-full p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
+                  <div className="h-full p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-white/[0.02]">
                     <HugeiconsIcon
                       icon={QuoteDownIcon}
                       size={20}
                       className="text-[#7c6ff7]/40 mb-4"
                     />
-                    <p className="text-zinc-300 text-xs leading-relaxed mb-6 line-clamp-5">
+                    <p className="text-gray-700 dark:text-zinc-300 text-xs leading-relaxed mb-6 line-clamp-5">
                       {item.content}
                     </p>
                     <div>
-                      <p className="text-white text-sm font-semibold">
+                      <p className="text-gray-900 dark:text-white text-sm font-semibold">
                         {item.name}
                       </p>
-                      <p className="text-zinc-500 text-xs">{item.role}</p>
+                      <p className="text-gray-400 dark:text-zinc-500 text-xs">{item.role}</p>
                     </div>
                   </div>
                 </CarouselItem>

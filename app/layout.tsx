@@ -17,7 +17,7 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "Social Copilot",
+  title: "AeroSocial Agent",
   description: "Use AI to generate and schedule social posts",
 };
 

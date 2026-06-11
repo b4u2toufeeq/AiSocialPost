@@ -16,13 +16,13 @@ const platforms = [
 
 export default function PlatformStrip() {
   return (
-    <section className="py-16 border-y border-white/5">
+    <section className="py-16 border-y border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-[#0a0a0f]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-center gap-3">
           {platforms.map((p) => (
             <span
               key={p.name}
-              className="px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-zinc-300 hover:scale-105 transition-all cursor-default"
+              className="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-zinc-300 hover:scale-105 transition-all cursor-default"
             >
               <span className={`bg-gradient-to-r ${p.color} bg-clip-text text-transparent`}>
                 {p.name}

@@ -20,13 +20,13 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-24 relative">
+    <section id="how-it-works" className="py-24 relative bg-white dark:bg-[#0a0a0f]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {t.landing.howItWorks.title}
           </h2>
-          <p className="text-zinc-400">
+          <p className="text-gray-500 dark:text-zinc-400">
             {t.landing.howItWorks.subtitle}
           </p>
         </div>
@@ -46,10 +46,10 @@ export default function HowItWorks() {
                   className="text-[#7c6ff7]"
                 />
               </div>
-              <h3 className="text-white font-semibold text-base mb-3">
+              <h3 className="text-gray-900 dark:text-white font-semibold text-base mb-3">
                 {step.title}
               </h3>
-              <p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-gray-500 dark:text-zinc-400 text-sm leading-relaxed max-w-xs">
                 {step.desc}
               </p>
             </div>

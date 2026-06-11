@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useLocale } from "@/components/providers/locale-provider";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { LOCALES } from "@/lib/i18n";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+import { Menu01Icon, Cancel01Icon, Sun01Icon, Moon01Icon } from "@hugeicons/core-free-icons";
 import Link from "next/link";
-
+import { useUser } from "@clerk/nextjs"
 const navLinks = [
   { key: "features", href: "#features" },
   { key: "howItWorks", href: "#how-it-works" },
@@ -16,7 +17,9 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { isSignedIn } = useUser();
   const { locale, setLocale, t } = useLocale();
+  const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,20 +38,19 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-white/5"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled
+          ? "bg-white/80 dark:bg-[#0a0a0f]/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="size-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">SC</span>
+              <span className="text-white font-bold text-sm">AS</span>
             </div>
-            <span className="font-bold text-base text-white hidden sm:inline">
-              Social Copilot
+              <span className="font-bold text-base text-gray-900 dark:text-white hidden sm:inline">
+              AeroSocial Agent
             </span>
           </Link>
 
@@ -58,7 +60,7 @@ export default function Navbar() {
                 key={link.key}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="text-sm text-zinc-400 hover:text-white transition-colors"
+                className="text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 {t.landing.nav[link.key as keyof typeof t.landing.nav] as string}
               </a>
@@ -72,35 +74,55 @@ export default function Navbar() {
                   key={lc}
                   type="button"
                   onClick={() => setLocale(lc)}
-                  className={`text-xs px-2 py-1 rounded-md transition-colors ${
-                    locale === lc
-                      ? "bg-white/10 text-white"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
+                  className={`text-xs px-2 py-1 rounded-md transition-colors ${locale === lc
+                    ? "bg-gray-200/50 dark:bg-white/10 text-gray-900 dark:text-white"
+                    : "text-gray-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-zinc-300"
+                    }`}
                 >
                   {lc === "ar" ? "ع" : "EN"}
                 </button>
               ))}
             </div>
 
-            <Button
-              render={<Link href="/sign-in" />}
-              variant="ghost"
-              className="hidden sm:inline-flex text-zinc-300 hover:text-white"
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-1.5 rounded-md text-gray-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-zinc-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {t.landing.nav.signIn}
-            </Button>
-
-            <Button
-              render={<Link href="/sign-up" />}
-              className="bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white hidden sm:inline-flex"
-            >
-              {t.landing.nav.getStarted}
-            </Button>
+              <HugeiconsIcon
+                icon={theme === "dark" ? Sun01Icon : Moon01Icon}
+                size={16}
+              />
+            </button>
+            {isSignedIn ? (
+              <Button
+                render={<Link href="/dashboard" />}
+                className="bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white hidden sm:inline-flex"
+              >
+                Dashboard
+              </Button>
+            ) : (
+              <>
+                <Button
+                  render={<Link href="/sign-in" />}
+                  variant="ghost"
+                  className="hidden sm:inline-flex text-gray-700 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white"
+                >
+                  {t.landing.nav.signIn}
+                </Button>
+                <Button
+                  render={<Link href="/sign-up" />}
+                  className="bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white hidden sm:inline-flex"
+                >
+                  {t.landing.nav.getStarted}
+                </Button>
+              </>
+            )}
 
             <button
               type="button"
-              className="md:hidden text-zinc-300"
+              className="md:hidden text-gray-700 dark:text-zinc-300"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
@@ -114,32 +136,43 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-white/5 bg-[#0a0a0f]">
+        <div className="md:hidden border-t border-gray-200 dark:border-white/5 bg-white dark:bg-[#0a0a0f]">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link) => (
               <a
                 key={link.key}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="block text-sm text-zinc-400 hover:text-white transition-colors"
+                className="block text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 {t.landing.nav[link.key as keyof typeof t.landing.nav] as string}
               </a>
             ))}
             <div className="pt-2 flex gap-2">
-              <Button
-                render={<Link href="/sign-in" />}
-                variant="outline"
-                className="flex-1 border-zinc-700 text-zinc-300"
-              >
-                {t.landing.nav.signIn}
-              </Button>
-              <Button
-                render={<Link href="/sign-up" />}
-                className="flex-1 bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white"
-              >
-                {t.landing.nav.getStarted}
-              </Button>
+              {isSignedIn ? (
+                <Button
+                  render={<Link href="/dashboard" />}
+                  className="flex-1 bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white"
+                >
+                  Dashboard
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    render={<Link href="/sign-in" />}
+                    variant="outline"
+                    className="flex-1 border-gray-300 dark:border-zinc-700 text-gray-700 dark:text-zinc-300"
+                  >
+                    {t.landing.nav.signIn}
+                  </Button>
+                  <Button
+                    render={<Link href="/sign-up" />}
+                    className="flex-1 bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white"
+                  >
+                    {t.landing.nav.getStarted}
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

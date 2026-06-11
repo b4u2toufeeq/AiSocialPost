@@ -41,19 +41,19 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/5 bg-[#0a0a0f]">
+    <footer className="border-t border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-[#0a0a0f]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <div className="size-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">SC</span>
+                <span className="text-white font-bold text-sm">AS</span>
               </div>
-              <span className="font-bold text-base text-white">
-                Social Copilot
+              <span className="font-bold text-base text-gray-900 dark:text-white">
+                AeroSocial Agent
               </span>
             </div>
-            <p className="text-zinc-500 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-gray-500 dark:text-zinc-500 text-sm leading-relaxed max-w-xs mb-6">
               {t.landing.footer.description}
             </p>
             <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href={s.href}
-                  className="size-9 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-colors"
+                  className="size-9 rounded-lg border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/20 transition-colors"
                 >
                   <HugeiconsIcon icon={s.icon} size={16} />
                 </a>
@@ -70,7 +70,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4">
+            <h4 className="text-gray-900 dark:text-white text-sm font-semibold mb-4">
               {t.landing.footer.product}
             </h4>
             <ul className="space-y-3">
@@ -78,7 +78,7 @@ export default function Footer() {
                 <li key={link.key}>
                   <a
                     href={link.href}
-                    className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors"
+                    className="text-gray-500 dark:text-zinc-500 text-sm hover:text-gray-900 dark:hover:text-zinc-300 transition-colors"
                   >
                     {t.landing.footer[link.key as keyof typeof t.landing.footer] as string}
                   </a>
@@ -88,7 +88,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4">
+            <h4 className="text-gray-900 dark:text-white text-sm font-semibold mb-4">
               {t.landing.footer.company}
             </h4>
             <ul className="space-y-3">
@@ -96,7 +96,7 @@ export default function Footer() {
                 <li key={link.key}>
                   <a
                     href={link.href}
-                    className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors"
+                    className="text-gray-500 dark:text-zinc-500 text-sm hover:text-gray-900 dark:hover:text-zinc-300 transition-colors"
                   >
                     {t.landing.footer[link.key as keyof typeof t.landing.footer] as string}
                   </a>
@@ -106,7 +106,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4">
+            <h4 className="text-gray-900 dark:text-white text-sm font-semibold mb-4">
               {t.landing.footer.legal}
             </h4>
             <ul className="space-y-3">
@@ -114,7 +114,7 @@ export default function Footer() {
                 <li key={link.key}>
                   <a
                     href={link.href}
-                    className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors"
+                    className="text-gray-500 dark:text-zinc-500 text-sm hover:text-gray-900 dark:hover:text-zinc-300 transition-colors"
                   >
                     {t.landing.footer[link.key as keyof typeof t.landing.footer] as string}
                   </a>
@@ -124,9 +124,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-zinc-600 text-xs">
-            &copy; {new Date().getFullYear()} Social Copilot.{" "}
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-gray-400 dark:text-zinc-600 text-xs">
+            &copy; {new Date().getFullYear()} AeroSocial Agent.{" "}
             {t.landing.footer.rights}
           </p>
 
@@ -138,8 +138,8 @@ export default function Footer() {
                 onClick={() => setLocale(lc)}
                 className={`text-xs px-3 py-1.5 rounded-md transition-colors ${
                   locale === lc
-                    ? "bg-zinc-800 text-zinc-200"
-                    : "text-zinc-600 hover:text-zinc-400"
+                    ? "bg-gray-200 dark:bg-zinc-800 text-gray-900 dark:text-zinc-200"
+                    : "text-gray-400 dark:text-zinc-600 hover:text-gray-700 dark:hover:text-zinc-400"
                 }`}
               >
                 {lc === "ar" ? "العربية" : "English"}

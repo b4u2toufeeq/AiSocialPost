@@ -12,22 +12,22 @@ export default function FaqSection() {
   const { t } = useLocale();
 
   return (
-    <section id="faq" className="py-24 relative">
+    <section id="faq" className="py-24 relative bg-gray-50 dark:bg-[#0a0a0f]">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {t.landing.faq.title}
           </h2>
         </div>
 
-        <Accordion className="border-white/5 bg-white/[0.02]">
+        <Accordion className="border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] rounded-2xl">
           {t.landing.faq.items.map(
             (item: { q: string; a: string }, i: number) => (
               <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-zinc-200 hover:text-white px-4 py-3 text-sm">
+                <AccordionTrigger className="text-gray-700 dark:text-zinc-200 hover:text-gray-900 dark:hover:text-white px-4 py-3 text-sm">
                   {item.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-zinc-400 px-4 text-xs leading-relaxed">
+                <AccordionContent className="text-gray-500 dark:text-zinc-400 px-4 text-xs leading-relaxed">
                   {item.a}
                 </AccordionContent>
               </AccordionItem>

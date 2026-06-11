@@ -26,17 +26,17 @@ export default function PricingSection() {
   ];
 
   return (
-    <section id="pricing" className="py-24 relative">
+    <section id="pricing" className="py-24 relative bg-gray-50 dark:bg-[#0a0a0f]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-500/5 blur-[120px] rounded-full" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             {t.landing.pricing.title}
           </h2>
-          <p className="text-zinc-400">
+          <p className="text-gray-500 dark:text-zinc-400">
             {t.landing.pricing.subtitle}
           </p>
         </div>
@@ -48,7 +48,7 @@ export default function PricingSection() {
               className={`relative rounded-2xl border p-6 transition-all duration-300 ${
                 tier.popular
                   ? "border-[#7c6ff7] bg-[#7c6ff7]/5 scale-105 md:scale-110"
-                  : "border-white/5 bg-white/[0.02] hover:border-white/10"
+                  : "border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:border-gray-300 dark:hover:border-white/10"
               }`}
             >
               {tier.popular && (
@@ -60,17 +60,17 @@ export default function PricingSection() {
               )}
 
               <div className="mb-6">
-                <h3 className="text-white font-semibold text-lg mb-1">
+                <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-1">
                   {tier.name}
                 </h3>
-                <p className="text-zinc-400 text-xs mb-4">
+                <p className="text-gray-500 dark:text-zinc-400 text-xs mb-4">
                   {tier.description}
                 </p>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-bold text-white">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">
                     {tier.price}
                   </span>
-                  <span className="text-zinc-500 text-sm">{tier.period}</span>
+                  <span className="text-gray-400 dark:text-zinc-500 text-sm">{tier.period}</span>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@ export default function PricingSection() {
                       size={16}
                       className="text-[#7c6ff7] shrink-0 mt-0.5"
                     />
-                    <span className="text-zinc-300 text-xs">{feature}</span>
+                    <span className="text-gray-700 dark:text-zinc-300 text-xs">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -92,7 +92,7 @@ export default function PricingSection() {
                 className={`w-full rounded-xl ${
                   tier.popular
                     ? "bg-[#7c6ff7] hover:bg-[#6b5ee6] text-white"
-                    : "border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800"
+                    : "border-gray-300 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800"
                 }`}
                 variant={tier.popular ? "default" : "outline"}
               >

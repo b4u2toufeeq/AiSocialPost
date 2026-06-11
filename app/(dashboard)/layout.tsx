@@ -63,7 +63,7 @@ export default function DashboardLayout({
           <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200 dark:border-slate-800">
             {!isCollapsed && (
               <span className="text-lg font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-tight">
-                Social Copilot
+                AeroSocial Agent
               </span>
             )}
             {isCollapsed && (

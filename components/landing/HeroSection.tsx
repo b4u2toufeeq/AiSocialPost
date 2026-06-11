@@ -16,7 +16,7 @@ export default function HeroSection() {
   const { locale, t } = useLocale();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-gray-50 dark:bg-[#0a0a0f]">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#7c6ff7]/10 blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/3 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-[100px]" />
@@ -25,7 +25,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         <div className="animate-[fadeIn_0.8s_ease-out]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-zinc-400 mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 px-4 py-1.5 text-xs text-gray-500 dark:text-zinc-400 mb-6">
             <span className="size-2 rounded-full bg-green-500 animate-pulse" />
             AI-Powered Social Media Management
           </div>
@@ -36,12 +36,12 @@ export default function HeroSection() {
             locale === "ar" ? "leading-[1.3]" : ""
           }`}
         >
-          <span className="bg-gradient-to-r from-white via-white to-zinc-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-500 dark:from-white dark:via-white dark:to-zinc-400 bg-clip-text text-transparent">
             {t.landing.hero.title}
           </span>
         </h1>
 
-        <p className="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto mb-8 animate-[fadeIn_0.8s_ease-out_0.3s_both]">
+        <p className="text-base sm:text-lg text-gray-500 dark:text-zinc-400 max-w-2xl mx-auto mb-8 animate-[fadeIn_0.8s_ease-out_0.3s_both]">
           {t.landing.hero.subtitle}
         </p>
 
@@ -55,7 +55,7 @@ export default function HeroSection() {
           </Button>
           <Button
             variant="outline"
-            className="border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800 px-8 py-4 text-sm rounded-xl w-full sm:w-auto"
+            className="border-gray-300 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800 px-8 py-4 text-sm rounded-xl w-full sm:w-auto"
           >
             <HugeiconsIcon icon={PlayIcon} size={16} />
             {t.landing.hero.ctaSecondary}
@@ -63,14 +63,14 @@ export default function HeroSection() {
         </div>
 
         <div className="animate-[fadeIn_0.8s_ease-out_0.6s_both]">
-          <p className="text-xs text-zinc-500 mb-4">
+          <p className="text-xs text-gray-400 dark:text-zinc-500 mb-4">
             {t.landing.platformStrip.title}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {platforms.map((name) => (
               <span
                 key={name}
-                className="px-3 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10 hover:border-white/20 transition-colors"
+                className="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-zinc-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-colors"
               >
                 {name}
               </span>
