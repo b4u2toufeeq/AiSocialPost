@@ -4,5 +4,73 @@
   "button": "Submit",
   "languageLabel": "Language",
   "english": "English",
-  "arabic": "العربية"
+  "arabic": "العربية",
+  "nav": {
+    "dashboard": "Dashboard",
+    "compose": "Compose",
+    "calendar": "Calendar",
+    "accounts": "Accounts",
+    "autoReply": "Auto-Reply",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "stats": {
+    "totalPosts": "Total Posts",
+    "scheduled": "Scheduled",
+    "activeChannels": "Active Channels",
+    "repliesSent": "Auto-Replies Sent",
+    "usageMeter": "Usage: {count} of {max} posts scheduled"
+  },
+  "composer": {
+    "title": "Create New Post",
+    "contentPlaceholder": "Write your post content here...",
+    "selectPlatforms": "Select Platforms",
+    "scheduleDate": "Schedule Date & Time",
+    "uploadMedia": "Upload Media",
+    "generateCaption": "AI Generate Caption",
+    "publishNow": "Publish Now",
+    "schedule": "Schedule Post",
+    "successMessage": "Post scheduled successfully!"
+  },
+  "calendar": {
+    "title": "Content Calendar",
+    "allPlatforms": "All Platforms",
+    "weekly": "Weekly View",
+    "monthly": "Monthly View"
+  },
+  "autoReply": {
+    "title": "AI Auto-Reply Rules",
+    "addRule": "Add New Rule",
+    "keyword": "Keyword Trigger",
+    "prompt": "Reply Prompt Instructions",
+    "active": "Active",
+    "inactive": "Inactive",
+    "status": "Status"
+  },
+  "analytics": {
+    "title": "Performance Analytics",
+    "engagement": "Engagement Rate",
+    "impressions": "Impressions",
+    "followers": "Follower Growth"
+  },
+  "settings": {
+    "title": "Account Settings",
+    "profile": "Profile Info",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "language": "Preferred Language"
+  },
+  "billing": {
+    "upgrade": "Upgrade Plan",
+    "freeTier": "Free Tier",
+    "proTier": "Pro Premium Tier",
+    "unlimited": "Unlimited Access"
+  },
+  "errors": {
+    "authFailed": "Authentication failed. Please sign in again.",
+    "uploadFailed": "Image upload failed. Try again.",
+    "schedulerFailed": "Scheduler error occurred."
+  }
 }
