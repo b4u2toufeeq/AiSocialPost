@@ -40,36 +40,55 @@ export async function POST(req: Request) {
   }
 
   const eventType = evt.type;
+  console.log("=== WEBHOOK EVENT ===", eventType);
+
+  const upsertUser = async (userData: {
+    id: string;
+    email: string;
+    firstName: string | null;
+    lastName: string | null;
+    imageUrl: string | null;
+  }) => {
+    console.log("=== INSERTING USER ===", userData.id, userData.email);
+    await db
+      .insert(users)
+      .values({ ...userData, createdAt: new Date(), updatedAt: new Date() })
+      .onConflictDoUpdate({
+        target: users.id,
+        set: { ...userData, updatedAt: new Date() },
+      });
+    console.log("=== USER INSERTED SUCCESSFULLY ===");
+  };
 
   if (eventType === "user.created" || eventType === "user.updated") {
     const { id, email_addresses, first_name, last_name, image_url } = evt.data;
     const email = email_addresses?.[0]?.email_address;
-
     if (!id || !email) {
-      return new Response("Error: Missing required user parameters", {
-        status: 400,
-      });
+      return new Response("Error: Missing required user parameters", { status: 400 });
     }
-
-    const userData = {
+    await upsertUser({
       id,
       email,
       firstName: first_name || null,
       lastName: last_name || null,
       imageUrl: image_url || null,
-      updatedAt: new Date(),
-    };
-
-    await db
-      .insert(users)
-      .values({
-        ...userData,
-        createdAt: new Date(),
-      })
-      .onConflictDoUpdate({
-        target: users.id,
-        set: userData,
-      });
+    });
+  } else if (eventType === "session.created") {
+    const u = evt.data.user;
+    if (!u?.id) {
+      return new Response("Error: Missing user in session data", { status: 400 });
+    }
+    const email = u.email_addresses?.[0]?.email_address;
+    if (!email) {
+      return new Response("Error: Missing email in session user data", { status: 400 });
+    }
+    await upsertUser({
+      id: u.id,
+      email,
+      firstName: u.first_name || null,
+      lastName: u.last_name || null,
+      imageUrl: u.image_url || null,
+    });
   } else if (eventType === "user.deleted") {
     const { id } = evt.data;
     if (!id) {

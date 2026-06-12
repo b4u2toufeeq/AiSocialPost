@@ -23,6 +23,7 @@ export async function GET(
 
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
+  const state = searchParams.get("state");
   const error = searchParams.get("error");
 
   if (error || !code) {
@@ -32,7 +33,7 @@ export async function GET(
 
   try {
     const redirectUri = `${env.NEXT_PUBLIC_BASE_URL}/api/oauth/${platform}/callback`;
-    const tokenResult = await config.exchangeCode(code, redirectUri);
+    const tokenResult = await config.exchangeCode(code, redirectUri, state || undefined);
 
     const encryptedAccess = encrypt(tokenResult.accessToken);
     const encryptedRefresh = tokenResult.refreshToken ? encrypt(tokenResult.refreshToken) : null;

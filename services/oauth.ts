@@ -1,4 +1,5 @@
 import { env } from "@/lib/env";
+import crypto from "crypto";
 
 export type PlatformId =
   | "instagram"
@@ -20,7 +21,7 @@ export interface PlatformConfig {
   icon: string;
   authMethod: "OAuth 2.0" | "OAuth 2.0 PKCE" | "Meta OAuth 2.0" | "Google OAuth 2.0" | "Bot Token" | "Slack OAuth 2.0" | "TikTok OAuth 2.0" | "Bot Token / OAuth";
   connectUrl: (redirectUri: string, state: string) => string;
-  exchangeCode: (code: string, redirectUri: string) => Promise<OAuthTokenResult>;
+  exchangeCode: (code: string, redirectUri: string, codeVerifier?: string) => Promise<OAuthTokenResult>;
   refreshToken?: (refreshToken: string) => Promise<OAuthTokenResult>;
 }
 
@@ -131,10 +132,13 @@ export const PLATFORMS: PlatformConfig[] = [
     icon: "NewTwitterIcon",
     authMethod: "OAuth 2.0 PKCE",
     connectUrl: (redirectUri, state) => {
-      const codeChallenge = state; // In production, generate S256 challenge
-      return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${env.TWITTER_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=tweet.read+tweet.write+users.read+offline.access&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=plain`;
+      const codeVerifier = crypto.randomBytes(32).toString("base64url");
+      const codeChallenge = crypto.createHash("sha256").update(codeVerifier).digest("base64url");
+      const compositeState = `${state}.${codeVerifier}`;
+      return `https://twitter.com/i/oauth2/authorize?response_type=code&client_id=${env.TWITTER_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=tweet.read+tweet.write+users.read+offline.access&state=${compositeState}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
     },
-    exchangeCode: async (code, redirectUri) => {
+    exchangeCode: async (code, redirectUri, codeVerifier) => {
+      const actualVerifier = codeVerifier ? codeVerifier.split(".").slice(1).join(".") : code;
       const basic = Buffer.from(`${env.TWITTER_CLIENT_ID}:${env.TWITTER_CLIENT_SECRET}`).toString("base64");
       const resp = await fetch("https://api.twitter.com/2/oauth2/token", {
         method: "POST",
@@ -146,7 +150,7 @@ export const PLATFORMS: PlatformConfig[] = [
           grant_type: "authorization_code",
           code,
           redirect_uri: redirectUri,
-          code_verifier: code, // PKCE plain — in production use proper challenge
+          code_verifier: actualVerifier,
         }),
       });
       return parseTwitterTokenResponse(resp);
