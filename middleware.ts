@@ -5,9 +5,11 @@ const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/compose(.*)",
   "/calendar(.*)",
+  "/media(.*)",
   "/accounts(.*)",
   "/auto-reply(.*)",
   "/analytics(.*)",
+  "/billing(.*)",
   "/settings(.*)",
   "/api(.*)",
 ]);

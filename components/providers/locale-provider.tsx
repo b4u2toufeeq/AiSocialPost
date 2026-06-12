@@ -31,6 +31,11 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
     window.localStorage.setItem("locale", newLocale);
+    fetch("/api/user/locale", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ locale: newLocale }),
+    }).catch(() => {});
   };
 
   const t = TRANSLATIONS[locale];
