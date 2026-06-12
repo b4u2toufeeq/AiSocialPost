@@ -1,6 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { PLATFORMS, getClientId, type PlatformId } from "@/services/oauth";
-import { env } from "@/lib/env";
+import { resolveCredentials, getAdapter, PLATFORM_META, type PlatformId } from "@/services/providers";
 import crypto from "crypto";
 
 export async function GET(
@@ -21,23 +20,29 @@ export async function GET(
     });
   }
 
-  const config = PLATFORMS.find((p) => p.id === platform);
-  if (!config) {
+  const adapter = getAdapter(platform as PlatformId);
+  const meta = PLATFORM_META[platform as PlatformId];
+
+  if (!adapter || !meta) {
     return Response.json({ error: `Unknown platform: ${platform}` }, { status: 400 });
   }
 
-  const clientId = getClientId(platform as PlatformId);
-  if (!clientId) {
+  const { config, credentials } = await resolveCredentials(userId, platform as PlatformId);
+
+  if (!credentials) {
     return Response.json({
-      error: `${config.name} OAuth is not configured. Set the required environment variables.`,
+      error: `${meta.name} is not configured. Please configure API credentials first.`,
       missingConfig: true,
-      platform: config.id,
+      platform,
     }, { status: 400 });
   }
 
   const state = crypto.randomBytes(32).toString("hex");
-  const redirectUri = `${env.NEXT_PUBLIC_BASE_URL}/api/oauth/${platform}/callback`;
-  const authUrl = config.connectUrl(redirectUri, state);
+  const authUrl = adapter.connectUrl(credentials, state);
 
-  return Response.json({ authUrl });
+  return Response.json({
+    authUrl,
+    providerConfigId: config?.id ?? null,
+    state,
+  });
 }
