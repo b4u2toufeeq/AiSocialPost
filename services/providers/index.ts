@@ -57,7 +57,7 @@ function getSystemCredentials(platform: PlatformId): ProviderCredentials | null 
     facebook: env.META_APP_ID ? { clientId: env.META_APP_ID, clientSecret: env.META_APP_SECRET, scopes: ["pages_manage_posts", "pages_read_engagement", "pages_show_list"] } : null,
     threads: env.META_APP_ID ? { clientId: env.META_APP_ID, clientSecret: env.META_APP_SECRET, scopes: ["threads_basic", "threads_content_publish"] } : null,
     twitter: env.TWITTER_CLIENT_ID ? { clientId: env.TWITTER_CLIENT_ID, clientSecret: env.TWITTER_CLIENT_SECRET, scopes: ["tweet.read", "tweet.write", "users.read", "offline.access"] } : null,
-    linkedin: env.LINKEDIN_CLIENT_ID ? { clientId: env.LINKEDIN_CLIENT_ID, clientSecret: env.LINKEDIN_CLIENT_SECRET, scopes: ["openid", "profile", "email", "w_member_social"] } : null,
+    linkedin: env.LINKEDIN_CLIENT_ID ? { clientId: env.LINKEDIN_CLIENT_ID, clientSecret: env.LINKEDIN_CLIENT_SECRET, scopes: ["openid", "profile", "email"] } : null,
     youtube: env.GOOGLE_CLIENT_ID ? { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET, scopes: ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/userinfo.profile"] } : null,
     tiktok: env.TIKTOK_CLIENT_KEY ? { clientId: env.TIKTOK_CLIENT_KEY, clientSecret: env.TIKTOK_CLIENT_SECRET, scopes: ["user.info.basic", "video.publish", "video.upload"] } : null,
     pinterest: env.PINTEREST_CLIENT_ID ? { clientId: env.PINTEREST_CLIENT_ID, clientSecret: env.PINTEREST_CLIENT_SECRET, scopes: ["boards:read", "boards:write", "pins:read", "pins:write", "user_accounts:read"] } : null,

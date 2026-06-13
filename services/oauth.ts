@@ -178,7 +178,7 @@ export const PLATFORMS: PlatformConfig[] = [
     icon: "Linkedin01Icon",
     authMethod: "OAuth 2.0",
     connectUrl: (redirectUri, state) =>
-      `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${env.LINKEDIN_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&scope=openid+profile+email+w_member_social`,
+      `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${env.LINKEDIN_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}&scope=openid+profile+email`,
     exchangeCode: async (code, redirectUri) => {
       const resp = await fetch("https://www.linkedin.com/oauth/v2/accessToken", {
         method: "POST",
