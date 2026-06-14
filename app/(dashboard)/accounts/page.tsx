@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useEffect, useCallback } from "react";
+import { Suspense, useState, useEffect, useCallback, startTransition } from "react";
 import { useLocale } from "@/components/providers/locale-provider";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -134,9 +134,13 @@ function AccountsContent() {
     const connected = searchParams.get("connected");
     const error = searchParams.get("error");
     if (connected) {
-      setToast({ type: "success", message: `${t.accounts.successConnected} — ${connected}` });
+      startTransition(() => {
+        setToast({ type: "success", message: `${t.accounts.successConnected} — ${connected}` });
+      });
     } else if (error) {
-      setToast({ type: "error", message: `${t.accounts.errorConnect}: ${decodeURIComponent(error)}` });
+      startTransition(() => {
+        setToast({ type: "error", message: `${t.accounts.errorConnect}: ${decodeURIComponent(error)}` });
+      });
     }
     if (connected || error) {
       const url = new URL(window.location.href);
@@ -148,8 +152,8 @@ function AccountsContent() {
 
   useEffect(() => {
     if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 4000);
-    return () => clearTimeout(timer);
+    const id = setTimeout(() => setToast(null), 4000);
+    return () => clearTimeout(id);
   }, [toast]);
 
   const fetchAccounts = useCallback(async () => {
@@ -167,7 +171,9 @@ function AccountsContent() {
   }, []);
 
   useEffect(() => {
-    fetchAccounts();
+    startTransition(() => {
+      fetchAccounts();
+    });
   }, [fetchAccounts]);
 
   function getCardState(platform: PlatformInfo): CardState {
@@ -191,7 +197,7 @@ function AccountsContent() {
       }
 
       if (data.authUrl) {
-        window.location.href = data.authUrl;
+        window.location.assign(data.authUrl);
       } else if (data.missingConfig) {
         const meta = PLATFORMS.find((p) => p.id === platformId);
         openConfigModal(platformId, meta?.name || platformId);
@@ -267,8 +273,6 @@ function AccountsContent() {
     }
   };
 
-  const connectedMap = new Map(accounts.map((a) => [a.platform, a]));
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1.5">
@@ -295,7 +299,6 @@ function AccountsContent() {
           const state = getCardState(platformInfo);
           const connected = platformInfo.connected[0] || null;
           const tokenStatus = connected ? tokenExpiresSoon(connected.expiresAt) : "ok";
-          const hasConfig = platformInfo.configStatus !== "none" || platformInfo.configId !== null;
           const showRefresh = state === "expired";
 
           return (

@@ -87,6 +87,31 @@ export const scheduledJobs = pgTable("scheduled_jobs", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+export const mediaAssets = pgTable("media_assets", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  fileName: text("file_name").notNull(),
+  fileType: text("file_type").notNull(),
+  url: text("url").notNull(),
+  fileId: text("file_id").notNull(),
+  width: text("width"),
+  height: text("height"),
+  fileSize: text("file_size"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const postTargets = pgTable("post_targets", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  postId: uuid("post_id").references(() => posts.id, { onDelete: "cascade" }).notNull(),
+  socialAccountId: uuid("social_account_id").references(() => socialAccounts.id, { onDelete: "cascade" }).notNull(),
+  platform: text("platform").notNull(),
+  status: text("status").default("pending").notNull(),
+  errorMessage: text("error_message"),
+  externalPostId: text("external_post_id"),
+  publishedAt: timestamp("published_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 export const auditLogs = pgTable("audit_logs", {
   id: uuid("id").defaultRandom().primaryKey(),
   tenantId: text("tenant_id").notNull(),

@@ -19,7 +19,7 @@ import { discord } from "./discord";
 import { slack } from "./slack";
 import { telegram } from "./telegram";
 
-export type { PlatformId, ProviderConfig, ProviderCredentials, OAuthTokenResult, ConnectedAccount } from "./types";
+export type { PlatformId, ProviderConfig, ProviderCredentials, OAuthTokenResult, ConnectedAccount, PublishParams, PublishResult } from "./types";
 
 export const platformAdapters: Record<PlatformId, SocialProviderAdapter> = {
   instagram,

@@ -30,7 +30,7 @@ export default function DashboardTopbar({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { user } = useUser();
+  useUser();
   const { locale, setLocale, t } = useLocale();
   const { theme, setTheme } = useTheme();
 

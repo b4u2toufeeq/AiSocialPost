@@ -1,4 +1,4 @@
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult } from "./types";
 
 export const pinterest: SocialProviderAdapter = {
   platform: "pinterest",
@@ -27,6 +27,33 @@ export const pinterest: SocialProviderAdapter = {
       }),
     });
     return parsePinterestTokenResponse(resp);
+  },
+
+  async publish(params: PublishParams): Promise<PublishResult> {
+    const { content, mediaUrls, accessToken } = params;
+
+    const resp = await fetch("https://api.pinterest.com/v5/pins", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: content.slice(0, 100),
+        description: content,
+        link: mediaUrls?.[0] || "",
+        media_source: mediaUrls?.[0]
+          ? { source_type: "image_url", url: mediaUrls[0] }
+          : undefined,
+      }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(`Pinterest publish error: ${data.message || resp.statusText}`);
+    return {
+      externalPostId: data.id,
+      publishedAt: new Date(),
+      postUrl: `https://www.pinterest.com/pin/${data.id}/`,
+    };
   },
 
   async refreshToken(token: string, credentials: ProviderCredentials): Promise<OAuthTokenResult> {

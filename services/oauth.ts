@@ -408,12 +408,6 @@ export function isPlatformConfigured(platform: PlatformId): boolean {
   return getClientId(platform).length > 0;
 }
 
-function getPlatformConfig(id: PlatformId): PlatformConfig {
-  const platform = PLATFORMS.find((p) => p.id === id);
-  if (!platform) throw new Error(`Unknown platform: ${id}`);
-  return platform;
-}
-
 // --- Token response parsers ---
 
 async function parseMetaTokenResponse(resp: Response): Promise<OAuthTokenResult> {

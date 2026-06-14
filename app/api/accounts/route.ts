@@ -47,7 +47,6 @@ export async function GET() {
   const platforms = (Object.keys(PLATFORM_META) as PlatformId[]).map((id) => {
     const meta = PLATFORM_META[id];
     const hasCustomConfig = configMap.has(id);
-    const hasSystemConfig = false; // resolved at connect time
     const connected = accounts.filter((a) => a.platform === id);
     return {
       id,

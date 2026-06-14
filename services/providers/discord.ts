@@ -1,4 +1,4 @@
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult } from "./types";
 
 export const discord: SocialProviderAdapter = {
   platform: "discord",
@@ -25,6 +25,34 @@ export const discord: SocialProviderAdapter = {
       }),
     });
     return parseDiscordTokenResponse(resp);
+  },
+
+  async publish(params: PublishParams): Promise<PublishResult> {
+    const { content, accessToken } = params;
+
+    const resp = await fetch("https://discord.com/api/users/@me/channels", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const channels = await resp.json();
+    if (!resp.ok) throw new Error(`Discord channels error: ${channels.error_description || resp.statusText}`);
+
+    const channelId = channels.id;
+    const msgResp = await fetch(`https://discord.com/api/channels/${channelId}/messages`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content }),
+    });
+    const msgData = await msgResp.json();
+    if (!msgResp.ok) throw new Error(`Discord message error: ${msgData.error_description || msgResp.statusText}`);
+
+    return {
+      externalPostId: msgData.id,
+      publishedAt: new Date(),
+      postUrl: `https://discord.com/channels/@me/${channelId}/${msgData.id}`,
+    };
   },
 
   async refreshToken(token: string, credentials: ProviderCredentials): Promise<OAuthTokenResult> {

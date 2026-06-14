@@ -1,4 +1,4 @@
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PlatformId } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult, PlatformId } from "./types";
 
 class MetaAdapter implements SocialProviderAdapter {
   readonly platform: PlatformId;
@@ -46,6 +46,73 @@ class MetaAdapter implements SocialProviderAdapter {
       `${this.tokenUrl}?grant_type=fb_exchange_token&client_id=${credentials.clientId}&client_secret=${credentials.clientSecret}&fb_exchange_token=${token}`,
     );
     return this.parseTokenResponse(resp, credentials);
+  }
+
+  async publish(params: PublishParams): Promise<PublishResult> {
+    const { content, mediaUrls, accessToken } = params;
+
+    if (this.platform === "facebook") {
+      const resp = await fetch(
+        `https://graph.facebook.com/v19.0/me/feed?access_token=${accessToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: content,
+            ...(mediaUrls?.length ? { attached_media: mediaUrls.map((url) => ({ media_fbid: url })) } : {}),
+          }),
+        }
+      );
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(`Facebook publish error: ${data.error?.message || resp.statusText}`);
+      return {
+        externalPostId: data.id,
+        publishedAt: new Date(),
+        postUrl: `https://www.facebook.com/${data.id}`,
+      };
+    }
+
+    if (this.platform === "instagram") {
+      const userResp = await fetch(
+        `https://graph.facebook.com/v19.0/me/accounts?access_token=${accessToken}`
+      );
+      const userData = await userResp.json();
+      const igUserId = userData.data?.[0]?.instagram_business_account?.id;
+      if (!igUserId) throw new Error("No Instagram business account found");
+
+      const mediaResp = await fetch(
+        `https://graph.facebook.com/v19.0/${igUserId}/media?access_token=${accessToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image_url: mediaUrls?.[0] || "",
+            caption: content,
+          }),
+        }
+      );
+      const mediaData = await mediaResp.json();
+      if (!mediaResp.ok) throw new Error(`Instagram media creation error: ${mediaData.error?.message || mediaResp.statusText}`);
+
+      const publishResp = await fetch(
+        `https://graph.facebook.com/v19.0/${igUserId}/media_publish?access_token=${accessToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ creation_id: mediaData.id }),
+        }
+      );
+      const publishData = await publishResp.json();
+      if (!publishResp.ok) throw new Error(`Instagram publish error: ${publishData.error?.message || publishResp.statusText}`);
+
+      return {
+        externalPostId: publishData.id,
+        publishedAt: new Date(),
+        postUrl: `https://www.instagram.com/p/${publishData.id}/`,
+      };
+    }
+
+    throw new Error(`Publishing not supported for ${this.platform} yet`);
   }
 
   private async parseTokenResponse(resp: Response, credentials: ProviderCredentials): Promise<OAuthTokenResult> {

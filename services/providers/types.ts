@@ -31,6 +31,18 @@ export interface OAuthTokenResult {
   avatarUrl?: string;
 }
 
+export interface PublishParams {
+  content: string;
+  mediaUrls?: string[];
+  accessToken: string;
+}
+
+export interface PublishResult {
+  externalPostId: string;
+  publishedAt: Date;
+  postUrl?: string;
+}
+
 export interface SocialProviderAdapter {
   readonly platform: PlatformId;
   readonly name: string;
@@ -44,6 +56,7 @@ export interface SocialProviderAdapter {
   ): Promise<OAuthTokenResult>;
   refreshToken?(refreshToken: string, credentials: ProviderCredentials): Promise<OAuthTokenResult>;
   getProfile?(accessToken: string): Promise<{ username: string; displayName?: string; avatarUrl?: string }>;
+  publish?(params: PublishParams): Promise<PublishResult>;
 }
 
 export interface ProviderConfig {

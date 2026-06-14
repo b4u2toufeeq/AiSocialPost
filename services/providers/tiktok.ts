@@ -1,4 +1,4 @@
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult } from "./types";
 
 export const tiktok: SocialProviderAdapter = {
   platform: "tiktok",
@@ -39,6 +39,10 @@ export const tiktok: SocialProviderAdapter = {
       }),
     });
     return parseTikTokTokenResponse(resp);
+  },
+
+  async publish(_params: PublishParams): Promise<PublishResult> {
+    throw new Error("TikTok publishing requires video file upload — not supported yet");
   },
 };
 

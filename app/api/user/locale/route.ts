@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 export async function PATCH(req: Request) {
   const { userId } = await auth();
@@ -14,7 +13,7 @@ export async function PATCH(req: Request) {
     return Response.json({ error: "Invalid locale" }, { status: 400 });
   }
 
-  const result = await db
+  await db
     .insert(users)
     .values({ id: userId, email: "", locale, updatedAt: new Date() })
     .onConflictDoUpdate({ target: users.id, set: { locale, updatedAt: new Date() } });

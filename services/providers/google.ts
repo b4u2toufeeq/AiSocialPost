@@ -1,4 +1,4 @@
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult } from "./types";
 
 export const youtube: SocialProviderAdapter = {
   platform: "youtube",
@@ -39,6 +39,10 @@ export const youtube: SocialProviderAdapter = {
       }),
     });
     return parseGoogleTokenResponse(resp);
+  },
+
+  async publish(_params: PublishParams): Promise<PublishResult> {
+    throw new Error("YouTube publishing requires video file upload — not supported yet");
   },
 };
 

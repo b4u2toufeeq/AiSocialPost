@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult } from "./types";
+import type { SocialProviderAdapter, ProviderCredentials, OAuthTokenResult, PublishParams, PublishResult } from "./types";
 
 export const twitter: SocialProviderAdapter = {
   platform: "twitter",
@@ -50,7 +50,59 @@ export const twitter: SocialProviderAdapter = {
     });
     return parseTwitterTokenResponse(resp);
   },
+
+  async publish(params: PublishParams): Promise<PublishResult> {
+    const { content, mediaUrls, accessToken } = params;
+
+    let mediaIds: string[] = [];
+    if (mediaUrls?.length) {
+      mediaIds = await Promise.all(
+        mediaUrls.map((url) => uploadTwitterMedia(url, accessToken))
+      );
+    }
+
+    const body: Record<string, unknown> = { text: content };
+    if (mediaIds.length > 0) {
+      body.media = { media_ids: mediaIds };
+    }
+
+    const resp = await fetch("https://api.twitter.com/2/tweets", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(`Twitter publish error: ${data.detail || JSON.stringify(data)}`);
+
+    return {
+      externalPostId: data.data?.id || "",
+      publishedAt: new Date(),
+      postUrl: `https://twitter.com/i/web/status/${data.data?.id}`,
+    };
+  },
 };
+
+async function uploadTwitterMedia(mediaUrl: string, accessToken: string): Promise<string> {
+  const mediaResp = await fetch(mediaUrl);
+  const buffer = Buffer.from(await mediaResp.arrayBuffer());
+
+  const formData = new FormData();
+  formData.append("media", new Blob([buffer]), "media.jpg");
+
+  const resp = await fetch("https://upload.twitter.com/1.1/media/upload.json", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${accessToken}` },
+    body: formData,
+  });
+
+  const data = await resp.json();
+  if (!resp.ok) throw new Error(`Twitter media upload error: ${data.errors?.[0]?.message || resp.statusText}`);
+  return data.media_id_string;
+}
 
 async function parseTwitterTokenResponse(resp: Response): Promise<OAuthTokenResult> {
   const data = await resp.json();

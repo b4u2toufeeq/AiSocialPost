@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { LOCALES, TRANSLATIONS, type Locale, type Translation } from "@/services/i18n";
+import { TRANSLATIONS, type Locale, type Translation } from "@/services/i18n";
 
 type LocaleContextType = {
   locale: Locale;
@@ -12,17 +12,15 @@ type LocaleContextType = {
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
-
-  useEffect(() => {
-    const savedLocale = window.localStorage.getItem("locale");
-    if (savedLocale === "ar" || savedLocale === "en") {
-      setLocaleState(savedLocale);
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window !== "undefined") {
+      const saved = window.localStorage.getItem("locale");
+      if (saved === "ar" || saved === "en") return saved;
     }
-  }, []);
+    return "en";
+  });
 
   useEffect(() => {
-    // Dynamically set lang and dir on the <html> element
     const html = document.documentElement;
     html.lang = locale;
     html.dir = locale === "ar" ? "rtl" : "ltr";
