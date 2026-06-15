@@ -27,7 +27,6 @@
     "drizzle-orm": "^0.45.2",
     "embla-carousel-react": "^8.6.0",
     "imagekit": "^6.0.0",
-    "imagekitio-next": "^1.0.1",
     "inngest": "^4.5.1",
     "input-otp": "^1.4.2",
     "ioredis": "^5.11.1",
