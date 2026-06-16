@@ -13,8 +13,6 @@ import PricingSection from "@/components/landing/PricingSection";
 import Testimonials from "@/components/landing/Testimonials";
 import FaqSection from "@/components/landing/FaqSection";
 import Footer from "@/components/landing/Footer";
-import PromoPopup from "@/components/landing/PromoPopup";
-
 export default function Home() {
   const { isLoaded, userId } = useAuth();
   const router = useRouter();
@@ -59,7 +57,6 @@ export default function Home() {
       <Testimonials />
       <FaqSection />
       <Footer />
-      <PromoPopup />
     </div>
   );
 }

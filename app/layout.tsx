@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LocaleProvider } from "@/components/providers/locale-provider";
+import PromoPopup from "@/components/landing/PromoPopup";
 import "./globals.css";
 import { Outfit, Noto_Kufi_Arabic } from "next/font/google";
 
@@ -40,7 +41,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <LocaleProvider>{children}</LocaleProvider>
+            <LocaleProvider>
+              {children}
+              <PromoPopup />
+            </LocaleProvider>
           </ThemeProvider>
         </body>
       </html>

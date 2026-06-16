@@ -46,6 +46,7 @@ const serverEnvSchema = z.object({
 
   // Inngest
   INNGEST_EVENT_KEY: z.string().optional().default(""),
+  INNGEST_SIGNING_KEY: z.string().optional().default(""),
 });
 
 const isServer = typeof window === "undefined";
@@ -92,6 +93,7 @@ if (isServer) {
     SLACK_CLIENT_ID: process.env.SLACK_CLIENT_ID,
     SLACK_CLIENT_SECRET: process.env.SLACK_CLIENT_SECRET,
     INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY,
+    INNGEST_SIGNING_KEY: process.env.INNGEST_SIGNING_KEY,
   });
 
   if (!serverParsed.success) {

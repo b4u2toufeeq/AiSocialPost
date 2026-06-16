@@ -1,16 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 
 export default function PromoPopup() {
   const [open, setOpen] = useState(false);
+  const shownRef = useRef(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setOpen(true), 2000);
-    return () => clearTimeout(timer);
+    if (shownRef.current) return;
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (shownRef.current) return;
+      if (e.clientY > 5) return;
+      shownRef.current = true;
+      setOpen(true);
+    };
+
+    const handleBeforeUnload = () => {
+      if (!shownRef.current) {
+        shownRef.current = true;
+        setOpen(true);
+      }
+    };
+
+    document.documentElement.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   if (!open) return null;
